@@ -1,8 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight, Sparkles, History } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AiDisclaimer } from "@/components/page-shell";
+import { useRecentSearches, RecentSearchesWindow } from "@/components/recent-searches";
 
 export const Route = createFileRoute("/")({
   head: () => ({

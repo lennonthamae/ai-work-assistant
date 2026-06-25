@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,8 +16,13 @@ import {
 } from "@/components/recent-searches";
 import { researchTopic } from "@/lib/ai.functions";
 
+const searchSchema = z.object({
+  topic: z.string().optional(),
+});
+
 export const Route = createFileRoute("/research")({
   head: () => ({ meta: [{ title: "AI Research Assistant · Aria" }] }),
+  validateSearch: (search) => searchSchema.parse(search),
   component: ResearchPage,
 });
 

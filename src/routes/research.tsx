@@ -34,31 +34,41 @@ const SUGGESTIONS = [
 
 function ResearchPage() {
   const run = useServerFn(researchTopic);
-  const [topic, setTopic] = useState("");
+  const { topic: initialTopic } = Route.useSearch();
+  const [topic, setTopic] = useState(initialTopic ?? "");
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { searches, addSearch, removeSearch, clearSearches } =
     useRecentSearches();
 
-  const submit = async (t: string) => {
-    if (t.trim().length < 3) {
-      toast.error("Enter a topic to research.");
-      return;
+  const submit = useCallback(
+    async (t: string) => {
+      if (t.trim().length < 3) {
+        toast.error("Enter a topic to research.");
+        return;
+      }
+      setLoading(true);
+      setError(null);
+      setText("");
+      try {
+        const res = await run({ data: { topic: t } });
+        setText(res.text);
+        addSearch(t);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Something went wrong.");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [run, addSearch],
+  );
+
+  useEffect(() => {
+    if (initialTopic && initialTopic.trim().length >= 3) {
+      submit(initialTopic);
     }
-    setLoading(true);
-    setError(null);
-    setText("");
-    try {
-      const res = await run({ data: { topic: t } });
-      setText(res.text);
-      addSearch(t);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [initialTopic, submit]);
 
   return (
     <PageShell

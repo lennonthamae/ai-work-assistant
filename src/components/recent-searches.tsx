@@ -125,7 +125,7 @@ export function RecentSearchesWindow({
                   {onRemove ? (
                     <Button
                       variant="ghost"
-                      size="icon-sm"
+                      size="icon"
                       aria-label={`Remove "${term}"`}
                       className="h-7 w-7 shrink-0 opacity-60 transition-opacity group-hover:opacity-100"
                       onClick={() => onRemove(term)}

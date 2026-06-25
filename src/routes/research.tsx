@@ -32,6 +32,8 @@ function ResearchPage() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { searches, addSearch, removeSearch, clearSearches } =
+    useRecentSearches();
 
   const submit = async (t: string) => {
     if (t.trim().length < 3) {

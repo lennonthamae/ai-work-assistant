@@ -95,13 +95,21 @@ function ResearchPage() {
                   </button>
                 ))}
               </div>
-              <Button
-                type="submit"
-                disabled={loading}
-                className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95"
-              >
-                {loading ? "Researching…" : "Research Topic"}
-              </Button>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95"
+                >
+                  {loading ? "Researching…" : "Research Topic"}
+                </Button>
+                <RecentSearchesWindow
+                  searches={searches}
+                  onSelect={submit}
+                  onRemove={removeSearch}
+                  onClear={clearSearches}
+                />
+              </div>
             </form>
           </CardContent>
         </Card>

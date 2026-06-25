@@ -92,6 +92,7 @@ function TasksPage() {
           loading={loading}
           error={error}
           emptyHint="Your prioritized plan and time blocks will appear here."
+          className="shadow-elegant"
         />
       </div>
     </PageShell>

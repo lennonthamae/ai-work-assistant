@@ -51,7 +51,7 @@ function TasksPage() {
       icon={ListChecks}
     >
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        <Card className="shadow-elegant">
           <CardContent className="p-6">
             <form onSubmit={onSubmit} className="space-y-4">
               <div>
@@ -92,6 +92,7 @@ function TasksPage() {
           loading={loading}
           error={error}
           emptyHint="Your prioritized plan and time blocks will appear here."
+          className="shadow-elegant"
         />
       </div>
     </PageShell>

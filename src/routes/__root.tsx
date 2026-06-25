@@ -126,7 +126,7 @@ function RootComponent() {
         <div className="flex min-h-screen w-full bg-gradient-hero">
           <AppSidebar />
           <div className="flex min-w-0 flex-1 flex-col">
-            <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b border-border/60 bg-background/70 px-4 backdrop-blur">
+            <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b border-border/60 bg-background/70 px-4 shadow-sm backdrop-blur">
               <SidebarTrigger />
               <span className="font-display text-sm font-semibold text-muted-foreground">
                 Aria · Workplace AI

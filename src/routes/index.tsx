@@ -61,6 +61,10 @@ const stats = [
 ];
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const { searches, removeSearch, clearSearches } = useRecentSearches();
+  const handleSelect = (term: string) =>
+    navigate({ to: "/research", search: { topic: term } });
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-8 md:px-8 md:py-12">
       <section className="mb-10 overflow-hidden rounded-2xl border bg-card p-8 shadow-elegant md:p-10">

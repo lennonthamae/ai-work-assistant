@@ -9,6 +9,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { PageShell } from "@/components/page-shell";
 import { AiOutput } from "@/components/ai-output";
+import {
+  RecentSearchesWindow,
+  useRecentSearches,
+} from "@/components/recent-searches";
 import { researchTopic } from "@/lib/ai.functions";
 
 export const Route = createFileRoute("/research")({

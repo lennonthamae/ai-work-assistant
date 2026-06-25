@@ -79,7 +79,7 @@ export function RecentSearchesWindow({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
+        <Button type="button" variant="outline" size="sm" className="gap-2">
           <History className="h-4 w-4" />
           Recent searches
           {hasSearches ? (

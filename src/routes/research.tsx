@@ -46,6 +46,7 @@ function ResearchPage() {
     try {
       const res = await run({ data: { topic: t } });
       setText(res.text);
+      addSearch(t);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {

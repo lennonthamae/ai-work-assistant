@@ -1,8 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight, Sparkles, History } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AiDisclaimer } from "@/components/page-shell";
+import { useRecentSearches, RecentSearchesWindow } from "@/components/recent-searches";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,6 +61,10 @@ const stats = [
 ];
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const { searches, removeSearch, clearSearches } = useRecentSearches();
+  const handleSelect = (term: string) =>
+    navigate({ to: "/research", search: { topic: term } });
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-8 md:px-8 md:py-12">
       <section className="mb-10 overflow-hidden rounded-2xl border bg-card p-8 shadow-elegant md:p-10">
@@ -119,6 +124,54 @@ function Dashboard() {
             </Link>
           ))}
         </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="mb-4 font-display text-xl font-semibold tracking-tight">
+          Recent search prompts
+        </h2>
+        <Card className="border-border/60 shadow-elegant">
+          <CardHeader>
+            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/20 to-cyan-500/20 text-foreground">
+              <History className="h-5 w-5" />
+            </div>
+            <CardTitle className="font-display text-lg">Research history</CardTitle>
+            <CardDescription>
+              Quickly rerun or manage your recent research topics.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {searches.length === 0 ? (
+              <div className="rounded-lg border border-dashed py-6 text-center text-sm text-muted-foreground">
+                No recent searches yet. Try the AI Research Assistant.
+              </div>
+            ) : (
+              <div className="mb-4 space-y-2">
+                {searches.slice(0, 5).map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => handleSelect(term)}
+                    className="w-full rounded-lg border bg-secondary/50 px-3 py-2 text-left text-sm font-medium text-secondary-foreground transition hover:bg-accent"
+                  >
+                    <span className="line-clamp-2">{term}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className="flex flex-wrap items-center gap-3">
+              <RecentSearchesWindow
+                searches={searches}
+                onSelect={handleSelect}
+                onRemove={removeSearch}
+                onClear={clearSearches}
+              />
+              <Button asChild variant="outline" size="sm">
+                <Link to="/research">Open Research Assistant</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       <div className="mt-10">

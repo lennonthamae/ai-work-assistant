@@ -4,17 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Copy, Check, Loader2 } from "lucide-react";
 import { AiDisclaimer } from "./page-shell";
+import { cn } from "@/lib/utils";
 
 export function AiOutput({
   text,
   loading,
   error,
   emptyHint,
+  className,
 }: {
   text: string;
   loading?: boolean;
   error?: string | null;
   emptyHint: string;
+  className?: string;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -26,7 +29,7 @@ export function AiOutput({
 
   if (loading) {
     return (
-      <Card className="flex min-h-[280px] flex-col items-center justify-center gap-3 p-8 text-muted-foreground">
+      <Card className={cn("flex min-h-[280px] flex-col items-center justify-center gap-3 p-8 text-muted-foreground", className)}>
         <Loader2 className="h-6 w-6 animate-spin text-primary" />
         <p className="text-sm">Aria is thinking…</p>
       </Card>
@@ -34,20 +37,20 @@ export function AiOutput({
   }
   if (error) {
     return (
-      <Card className="border-destructive/30 bg-destructive/5 p-6 text-sm text-destructive">
+      <Card className={cn("border-destructive/30 bg-destructive/5 p-6 text-sm text-destructive", className)}>
         {error}
       </Card>
     );
   }
   if (!text) {
     return (
-      <Card className="flex min-h-[280px] items-center justify-center p-8 text-center text-sm text-muted-foreground">
+      <Card className={cn("flex min-h-[280px] items-center justify-center p-8 text-center text-sm text-muted-foreground", className)}>
         {emptyHint}
       </Card>
     );
   }
   return (
-    <Card className="overflow-hidden">
+    <Card className={cn("overflow-hidden", className)}>
       <div className="flex items-center justify-between border-b bg-muted/40 px-4 py-2">
         <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Output

@@ -9,6 +9,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { PageShell } from "@/components/page-shell";
 import { AiOutput } from "@/components/ai-output";
+import {
+  RecentSearchesWindow,
+  useRecentSearches,
+} from "@/components/recent-searches";
 import { researchTopic } from "@/lib/ai.functions";
 
 export const Route = createFileRoute("/research")({
@@ -28,6 +32,8 @@ function ResearchPage() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { searches, addSearch, removeSearch, clearSearches } =
+    useRecentSearches();
 
   const submit = async (t: string) => {
     if (t.trim().length < 3) {
@@ -40,6 +46,7 @@ function ResearchPage() {
     try {
       const res = await run({ data: { topic: t } });
       setText(res.text);
+      addSearch(t);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
@@ -88,13 +95,21 @@ function ResearchPage() {
                   </button>
                 ))}
               </div>
-              <Button
-                type="submit"
-                disabled={loading}
-                className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95"
-              >
-                {loading ? "Researching…" : "Research Topic"}
-              </Button>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95"
+                >
+                  {loading ? "Researching…" : "Research Topic"}
+                </Button>
+                <RecentSearchesWindow
+                  searches={searches}
+                  onSelect={submit}
+                  onRemove={removeSearch}
+                  onClear={clearSearches}
+                />
+              </div>
             </form>
           </CardContent>
         </Card>

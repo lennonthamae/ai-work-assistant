@@ -7,6 +7,7 @@ import {
   Search,
   MessageSquare,
   Sparkles,
+  Hammer,
 } from "lucide-react";
 
 import {

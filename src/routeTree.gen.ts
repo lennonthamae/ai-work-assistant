@@ -14,6 +14,7 @@ import { Route as ResearchRouteImport } from './routes/research'
 import { Route as MeetingsRouteImport } from './routes/meetings'
 import { Route as EmailRouteImport } from './routes/email'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as ChallengesRouteImport } from './routes/challenges'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
@@ -42,6 +43,11 @@ const ChatRoute = ChatRouteImport.update({
   path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChallengesRoute = ChallengesRouteImport.update({
+  id: '/challenges',
+  path: '/challenges',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,6 +61,7 @@ const ApiChatRoute = ApiChatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
   '/chat': typeof ChatRoute
   '/email': typeof EmailRoute
   '/meetings': typeof MeetingsRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
   '/chat': typeof ChatRoute
   '/email': typeof EmailRoute
   '/meetings': typeof MeetingsRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/challenges': typeof ChallengesRoute
   '/chat': typeof ChatRoute
   '/email': typeof EmailRoute
   '/meetings': typeof MeetingsRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/challenges'
     | '/chat'
     | '/email'
     | '/meetings'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/challenges'
     | '/chat'
     | '/email'
     | '/meetings'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/challenges'
     | '/chat'
     | '/email'
     | '/meetings'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChallengesRoute: typeof ChallengesRoute
   ChatRoute: typeof ChatRoute
   EmailRoute: typeof EmailRoute
   MeetingsRoute: typeof MeetingsRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/challenges': {
+      id: '/challenges'
+      path: '/challenges'
+      fullPath: '/challenges'
+      preLoaderRoute: typeof ChallengesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChallengesRoute: ChallengesRoute,
   ChatRoute: ChatRoute,
   EmailRoute: EmailRoute,
   MeetingsRoute: MeetingsRoute,

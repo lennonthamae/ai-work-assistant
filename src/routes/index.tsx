@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight, Sparkles, History } from "lucide-react";
+import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight, Sparkles, History, Hammer } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AiDisclaimer } from "@/components/page-shell";
@@ -50,6 +50,13 @@ const features = [
     icon: MessageSquare,
     href: "/chat",
     accent: "from-violet-500/20 to-purple-500/20",
+  },
+  {
+    title: "Building Challenges",
+    description: "See what broke during development and how it was fixed.",
+    icon: Hammer,
+    href: "/challenges",
+    accent: "from-rose-500/20 to-amber-500/20",
   },
 ] as const;
 
